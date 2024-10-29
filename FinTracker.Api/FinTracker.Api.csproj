@@ -6,4 +6,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Aspnetcore.OpenApi" Version="8.0.10" />
+    <PackageReference Include="Swashbuckle.Aspnetcore" Version="6.9.0" />
+  </ItemGroup>
+
 </Project>
