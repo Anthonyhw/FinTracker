@@ -13,7 +13,7 @@ namespace FinTracker.Core.Models
         public string Title { get; set; } = string.Empty;
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
-        public DateTime? PayedOrReceivedAt { get; set;}
+        public DateTime? PaidOrReceivedAt { get; set;}
 
         public EtransactionType Type { get; set; } = EtransactionType.Withdraw;
 
