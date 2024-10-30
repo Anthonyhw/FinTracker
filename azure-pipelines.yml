@@ -18,5 +18,5 @@ steps:
   displayName: 'Build Solution'
 
 - script: |
-    git push https://$(AZUREDEVOPS)@dev.azure.com/anthonydsant/_git/FinTracker HEAD:master
+    git pull https://$(AZUREDEVOPS)@dev.azure.com/anthonydsant/_git/FinTracker HEAD:master
   displayName: 'Sync to Azure DevOps'
