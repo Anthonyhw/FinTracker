@@ -13,10 +13,10 @@ steps:
     version: '8.x'
     installationPath: $(Agent.ToolsDirectory)/dotnet
 
-- script: |
-    dotnet build --configuration Release
-  displayName: 'Build Solution'
+#- script: |
+#    dotnet build --configuration Release
+#  displayName: 'Build Solution'
 
 - script: |
-    git pull https://$(AZUREDEVOPS)@dev.azure.com/anthonydsant/_git/FinTracker HEAD:master
+    git pull https://$(AZUREDEVOPS)@dev.azure.com/anthonydsant/_git/FinTracker
   displayName: 'Sync to Azure DevOps'
