@@ -9,20 +9,20 @@ namespace FinTracker.Core.Responses
 {
     public class Response<T>
     {
-        private readonly int _code;
+        public readonly int Code;
 
         [JsonConstructor]
-        public Response() => _code = Configuration.DefaultStatusCode;
+        public Response() => Code = Configuration.DefaultStatusCode;
         
         public Response(T? data, int code = Configuration.DefaultStatusCode, string? message = null)
         {
             Data = data;
-            _code = code;
+            this.Code = code;
             Message = message;
         }
         public T? Data { get; set; }
         public string? Message { get; set; } = string.Empty;
         [JsonIgnore]
-        public bool IsSuccess => _code is >= 200 and <= 299;
+        public bool IsSuccess => Code is >= 200 and <= 299;
     }
 }
