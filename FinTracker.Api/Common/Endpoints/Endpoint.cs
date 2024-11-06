@@ -1,5 +1,6 @@
 ﻿using FinTracker.Api.Common.Api;
 using FinTracker.Api.Common.Endpoints.Categories;
+using FinTracker.Api.Common.Endpoints.Transactions;
 
 namespace FinTracker.Api.Common.Endpoints
 {
@@ -17,6 +18,16 @@ namespace FinTracker.Api.Common.Endpoints
                      .MapEndpoint<DeleteCategoryEndpoint>()
                      .MapEndpoint<GetCategoryByIdEndpoint>()
                      .MapEndpoint<GetAllCategoriesEndpoint>();
+            #endregion
+
+            #region [Transactions]
+            endpoints.MapGroup("v1/transactions")
+                     .WithTags("Transactions")
+                     .MapEndpoint<CreateTransactionEndpoint>()
+                     .MapEndpoint<UpdateTransactionEndpoint>()
+                     .MapEndpoint<DeleteTransactionEndpoint>()
+                     .MapEndpoint<GetTransactionByIdEndpoint>()
+                     .MapEndpoint<GetTransactionsByPeriodEndpoint>();
             #endregion
 
         }

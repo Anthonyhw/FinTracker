@@ -22,7 +22,8 @@ builder.Services.AddSwaggerGen();
 #endregion
 
 #region [Dependency Injection]
-builder.Services.AddTransient<ICategoryHandler, CategoryHandler>();
+builder.Services.AddTransient<ICategoryHandler, CategoryHandler>()
+                .AddTransient<ITransactionHandler, TransactionHandler>();
 #endregion
 
 var app = builder.Build();
