@@ -31,7 +31,6 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.MapGet("/", () => new { message = "Ok!" });
 app.MapEndpoints();
 
 app.Run();

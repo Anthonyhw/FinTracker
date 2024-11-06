@@ -10,24 +10,31 @@ namespace FinTracker.Api.Common.Endpoints
         {
             var endpoints = app.MapGroup("");
 
+            #region [HealtCheck]
+            endpoints.MapGroup("")
+                     .WithTags("HealthCheck")
+                     .MapGet("/", () => new { message = "Ok!" })
+                     .WithOrder(1);
+            #endregion
+
             #region [Categories]
             endpoints.MapGroup("v1/categories")
                      .WithTags("Categories")
+                     .MapEndpoint<GetCategoryByIdEndpoint>()
+                     .MapEndpoint<GetAllCategoriesEndpoint>()
                      .MapEndpoint<CreateCategoryEndpoint>()
                      .MapEndpoint<UpdateCategoryEndpoint>()
-                     .MapEndpoint<DeleteCategoryEndpoint>()
-                     .MapEndpoint<GetCategoryByIdEndpoint>()
-                     .MapEndpoint<GetAllCategoriesEndpoint>();
+                     .MapEndpoint<DeleteCategoryEndpoint>();
             #endregion
 
             #region [Transactions]
             endpoints.MapGroup("v1/transactions")
                      .WithTags("Transactions")
+                     .MapEndpoint<GetTransactionByIdEndpoint>()
+                     .MapEndpoint<GetTransactionsByPeriodEndpoint>()
                      .MapEndpoint<CreateTransactionEndpoint>()
                      .MapEndpoint<UpdateTransactionEndpoint>()
-                     .MapEndpoint<DeleteTransactionEndpoint>()
-                     .MapEndpoint<GetTransactionByIdEndpoint>()
-                     .MapEndpoint<GetTransactionsByPeriodEndpoint>();
+                     .MapEndpoint<DeleteTransactionEndpoint>();
             #endregion
 
         }
