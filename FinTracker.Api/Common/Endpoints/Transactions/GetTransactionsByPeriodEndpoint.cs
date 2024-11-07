@@ -4,6 +4,7 @@ using FinTracker.Core.Models;
 using FinTracker.Core.Requests.Transactions;
 using FinTracker.Core.Responses;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace FinTracker.Api.Common.Endpoints.Transactions
 {
@@ -17,15 +18,15 @@ namespace FinTracker.Api.Common.Endpoints.Transactions
             .WithOrder(2)
             .Produces<PagedResponse<List<Transaction?>>>();
 
-        private static async Task<IResult> HandleAsync(ITransactionHandler handler, 
-            [FromQuery] int pageNumber,
-            [FromQuery] int pageSize,
+        private static async Task<IResult> HandleAsync(ClaimsPrincipal user, ITransactionHandler handler, 
+            [FromQuery] int pageNumber = 1,
+            [FromQuery] int pageSize = 25,
             [FromQuery] DateTime? startDate = null,
             [FromQuery] DateTime? endDate = null)
         {
             var request = new GetTransactionsByPeriodRequest
             {
-                UserId = "teste@hotmail.com",
+                UserId = user.Identity?.Name ?? string.Empty,
                 PageNumber = pageNumber,
                 PageSize = pageSize,
                 StartDate = startDate,

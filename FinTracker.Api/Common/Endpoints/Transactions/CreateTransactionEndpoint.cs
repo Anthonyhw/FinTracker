@@ -3,6 +3,7 @@ using FinTracker.Core.Handlers;
 using FinTracker.Core.Models;
 using FinTracker.Core.Requests.Transactions;
 using FinTracker.Core.Responses;
+using System.Security.Claims;
 
 namespace FinTracker.Api.Common.Endpoints.Transactions
 {
@@ -16,9 +17,10 @@ namespace FinTracker.Api.Common.Endpoints.Transactions
             .WithOrder(3)
             .Produces<Response<Transaction?>>();
 
-        private static async Task<IResult> HandleAsync(
+        private static async Task<IResult> HandleAsync(ClaimsPrincipal user,
             CreateTransactionRequest request, ITransactionHandler handler)
         {
+            request.UserId = user.Identity?.Name ?? string.Empty;
             var result = await handler.CreateAsync(request);
             
             return result.IsSuccess 

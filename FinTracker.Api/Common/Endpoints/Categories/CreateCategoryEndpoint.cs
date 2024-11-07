@@ -3,7 +3,7 @@ using FinTracker.Core.Handlers;
 using FinTracker.Core.Models;
 using FinTracker.Core.Requests.Categories;
 using FinTracker.Core.Responses;
-using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace FinTracker.Api.Common.Endpoints.Categories
 {
@@ -18,8 +18,10 @@ namespace FinTracker.Api.Common.Endpoints.Categories
             .Produces<Response<Category?>>();
 
         private static async Task<IResult> HandleAsync(
+            ClaimsPrincipal user,
             CreateCategoryRequest request, ICategoryHandler handler)
         {
+            request.UserId = user.Identity?.Name ?? string.Empty;
             var result = await handler.CreateAsync(request);
             
             return result.IsSuccess 
