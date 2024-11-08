@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FinTracker.Core
+﻿namespace FinTracker.Core
 {
     public static class Configuration
     {
@@ -12,5 +6,9 @@ namespace FinTracker.Core
 
         public const int DefaultPageNumber = 1;
         public const int DefaultPageSize = 25;
+
+        public static string ConnectionString { get; set; } = string.Empty;
+        public static string BackendUrl { get; set; } = string.Empty;
+        public static string FrontendUrl { get; set; } = string.Empty;
     }
 }

@@ -1,5 +1,6 @@
 ﻿using FinTracker.Api.Common.Api;
 using FinTracker.Api.Common.Endpoints.Categories;
+using FinTracker.Api.Common.Endpoints.Identity;
 using FinTracker.Api.Common.Endpoints.Transactions;
 using FinTracker.Api.Models;
 using Microsoft.AspNetCore.Identity;
@@ -27,34 +28,9 @@ namespace FinTracker.Api.Common.Endpoints
 
             endpoints.MapGroup("v1/identity")
                      .WithTags("Identity")
-                     .MapPost("/logout", async (SignInManager<User> signinManager) =>
-                     {
-                         await signinManager.SignOutAsync();
-                         return Results.Ok();
-                     })
-                     .RequireAuthorization();
-
-            endpoints.MapGroup("v1/identity")
-                     .WithTags("Identity")
-                     .MapGet("/roles", (ClaimsPrincipal user) =>
-                     {
-                         if (user.Identity is null || !user.Identity.IsAuthenticated)
-                             return Results.Unauthorized();
-
-                         var identity = (ClaimsIdentity) user.Identity;
-                         var roles = identity.FindAll(identity.RoleClaimType)
-                         .Select(x => new
-                         {
-                             x.Issuer,
-                             x.OriginalIssuer,
-                             x.Type,
-                             x.Value,
-                             x.ValueType
-                         });
-
-                         return TypedResults.Json(roles);
-                     })
-                     .RequireAuthorization();
+                     .RequireAuthorization()
+                     .MapEndpoint<LogoutEndpoint>()
+                     .MapEndpoint<GetRolesEndpoint>();
             #endregion
 
             #region [Categories]

@@ -1,53 +1,29 @@
+using FinTracker.Api;
+using FinTracker.Api.Common.Api;
 using FinTracker.Api.Common.Endpoints;
-using FinTracker.Api.Data;
-using FinTracker.Api.Handlers;
-using FinTracker.Api.Models;
-using FinTracker.Core.Handlers;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-#region [Swagger Settings]
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-#endregion
+builder.AddDocumentation();
 
-#region [Authentication & Authorization]
-builder.Services.AddAuthentication(IdentityConstants.ApplicationScheme)
-                .AddIdentityCookies();
-builder.Services.AddAuthorization();
-#endregion
+builder.AddSecurity();
 
-#region [Database Settings]
-string connectionString = builder.Configuration
-    .GetConnectionString("DefaultConnection") ?? string.Empty;
+builder.AddConfiguration();
 
-builder.Services.AddDbContext<AppDbContext>(opt =>
-{
-    opt.UseSqlServer(connectionString);
-});
-#endregion
+builder.AddDataContexts();
 
-#region [Identity]
-builder.Services.AddIdentityCore<User>()
-                .AddRoles<IdentityRole<long>>()
-                .AddEntityFrameworkStores<AppDbContext>()
-                .AddApiEndpoints();
-#endregion
+builder.AddCrossOrigin();
 
-#region [Dependency Injection]
-builder.Services.AddTransient<ICategoryHandler, CategoryHandler>()
-                .AddTransient<ITransactionHandler, TransactionHandler>();
-#endregion
+builder.AddServices();
 
 var app = builder.Build();
 
-app.UseAuthentication();
-app.UseAuthorization();
+app.UseCors(ApiConfiguration.CorsPolicyName);
 
-app.UseSwagger();
-app.UseSwaggerUI();
+app.UseSecurity();
+
+if (app.Environment.IsDevelopment())
+    app.ConfigureDevEnvironment();
 
 app.MapEndpoints();
 

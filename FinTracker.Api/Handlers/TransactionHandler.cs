@@ -66,7 +66,7 @@ namespace FinTracker.Api.Handlers
                     Amount = request.Amount,
                     Type = request.Type,
                     CategoryId = request.CategoryId,
-                    CreatedAt = DateTime.UtcNow,
+                    CreatedAt = DateTime.Now,
                     PaidOrReceivedAt = request.PaidOrReceivedAt
                 };
 
