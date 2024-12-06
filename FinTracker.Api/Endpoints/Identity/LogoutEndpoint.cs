@@ -2,7 +2,7 @@
 using FinTracker.Api.Models;
 using Microsoft.AspNetCore.Identity;
 
-namespace FinTracker.Api.Common.Endpoints.Identity
+namespace FinTracker.Api.Endpoints.Identity
 {
     public class LogoutEndpoint : IEndpoint
     {

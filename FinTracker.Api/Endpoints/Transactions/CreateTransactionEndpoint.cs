@@ -5,7 +5,7 @@ using FinTracker.Core.Requests.Transactions;
 using FinTracker.Core.Responses;
 using System.Security.Claims;
 
-namespace FinTracker.Api.Common.Endpoints.Transactions
+namespace FinTracker.Api.Endpoints.Transactions
 {
     public class CreateTransactionEndpoint : IEndpoint
     {

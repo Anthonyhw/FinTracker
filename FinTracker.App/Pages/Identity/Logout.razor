@@ -1,0 +1,18 @@
+﻿@page "/logout"
+@inherits LogoutPage
+@layout HeadlessLayout
+
+<PageTitle>FinTracker - Sair</PageTitle>
+
+<MudText Typo="Typo.h3">Finalizando sessão...</MudText>
+<MudPaper Class="pa-8 mt-4">
+    <div class="d-flex justify-center pb-8 pt=-8">
+        <img src="/images/FinTracker_Logo.png" alt="FinTracker" width="200"/>
+    </div>
+    <MudAlert Severity="Severity.Info">
+        Sessão Finalizada.
+        <MudButton Variant="Variant.Text" Href="/login">
+            Ir para tela de Login
+        </MudButton>
+    </MudAlert>
+</MudPaper>

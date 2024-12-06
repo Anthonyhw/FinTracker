@@ -1,9 +1,10 @@
 ﻿using FinTracker.Api.Common.Api;
 using FinTracker.Api.Models;
+using FinTracker.Core.Models.Account;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 
-namespace FinTracker.Api.Common.Endpoints.Identity
+namespace FinTracker.Api.Endpoints.Identity
 {
     public class GetRolesEndpoint : IEndpoint
     {
@@ -17,13 +18,13 @@ namespace FinTracker.Api.Common.Endpoints.Identity
 
             var identity = (ClaimsIdentity)user.Identity;
             var roles = identity.FindAll(identity.RoleClaimType)
-            .Select(x => new
+            .Select(x => new RoleClaim
             {
-                x.Issuer,
-                x.OriginalIssuer,
-                x.Type,
-                x.Value,
-                x.ValueType
+                Issuer = x.Issuer,
+                OriginalIssuer = x.OriginalIssuer,
+                Type = x.Type,
+                Value = x.Value,
+                ValueType = x.ValueType
             });
 
             return Task.FromResult<IResult>(TypedResults.Json(roles));

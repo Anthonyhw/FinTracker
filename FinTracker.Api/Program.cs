@@ -1,6 +1,6 @@
 using FinTracker.Api;
 using FinTracker.Api.Common.Api;
-using FinTracker.Api.Common.Endpoints;
+using FinTracker.Api.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
 

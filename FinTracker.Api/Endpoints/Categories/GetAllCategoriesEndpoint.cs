@@ -6,7 +6,7 @@ using FinTracker.Core.Responses;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
-namespace FinTracker.Api.Common.Endpoints.Categories
+namespace FinTracker.Api.Endpoints.Categories
 {
     public class GetAllCategoriesEndpoint : IEndpoint
     {

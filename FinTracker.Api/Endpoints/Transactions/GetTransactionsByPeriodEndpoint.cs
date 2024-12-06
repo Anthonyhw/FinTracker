@@ -6,7 +6,7 @@ using FinTracker.Core.Responses;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
-namespace FinTracker.Api.Common.Endpoints.Transactions
+namespace FinTracker.Api.Endpoints.Transactions
 {
     public class GetTransactionsByPeriodEndpoint : IEndpoint
     {

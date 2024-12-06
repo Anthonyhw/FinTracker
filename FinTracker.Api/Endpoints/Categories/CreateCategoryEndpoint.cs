@@ -5,7 +5,7 @@ using FinTracker.Core.Requests.Categories;
 using FinTracker.Core.Responses;
 using System.Security.Claims;
 
-namespace FinTracker.Api.Common.Endpoints.Categories
+namespace FinTracker.Api.Endpoints.Categories
 {
     public class CreateCategoryEndpoint : IEndpoint
     {

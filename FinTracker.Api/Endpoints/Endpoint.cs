@@ -1,12 +1,12 @@
 ﻿using FinTracker.Api.Common.Api;
-using FinTracker.Api.Common.Endpoints.Categories;
-using FinTracker.Api.Common.Endpoints.Identity;
-using FinTracker.Api.Common.Endpoints.Transactions;
+using FinTracker.Api.Endpoints.Categories;
+using FinTracker.Api.Endpoints.Identity;
+using FinTracker.Api.Endpoints.Transactions;
 using FinTracker.Api.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 
-namespace FinTracker.Api.Common.Endpoints
+namespace FinTracker.Api.Endpoints
 {
     public static class Endpoint
     {
