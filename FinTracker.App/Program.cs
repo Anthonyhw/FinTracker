@@ -28,6 +28,8 @@ builder.Services.AddHttpClient(name:Configuration.HttpClientName, configureClien
     opt.BaseAddress = new Uri(Configuration.BackendUrl);
 }).AddHttpMessageHandler<CookieHandler>();
 
-builder.Services.AddTransient<IAccountHandler, AccountHandler>();
+builder.Services.AddTransient<IAccountHandler, AccountHandler>()
+                .AddTransient<ICategoryHandler, CategoryHandler>()
+                .AddTransient<ITransactionHandler, TransactionHandler>();
 
 await builder.Build().RunAsync();
