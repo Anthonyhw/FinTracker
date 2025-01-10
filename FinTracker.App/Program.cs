@@ -32,4 +32,6 @@ builder.Services.AddTransient<IAccountHandler, AccountHandler>()
                 .AddTransient<ICategoryHandler, CategoryHandler>()
                 .AddTransient<ITransactionHandler, TransactionHandler>();
 
+builder.Services.AddLocalization();
+
 await builder.Build().RunAsync();

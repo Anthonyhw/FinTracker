@@ -12,9 +12,9 @@ namespace FinTracker.Core.Requests.Transactions
     {
         [Required(ErrorMessage = "Título é obrigatório.")]
         public string Title { get; set; } = string.Empty;
-        
+
         [Required(ErrorMessage = "Tipo é obrigatório.")]
-        public EtransactionType Type { get; set; }
+        public EtransactionType Type { get; set; } = EtransactionType.Withdraw;
 
         [Required(ErrorMessage = "Valor é obrigatório.")]
         public decimal Amount { get; set; }

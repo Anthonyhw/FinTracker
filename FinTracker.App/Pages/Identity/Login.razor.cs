@@ -46,7 +46,7 @@ namespace FinTracker.App.Pages.Identity
                     NavigationManager.NavigateTo("/");
                 }
                 else
-                    Snackbar.Add(result.Message, Severity.Error);
+                    Snackbar.Add(result.Message ?? "Erro ao processar operação.", Severity.Error);
             }
             catch (Exception)
             {

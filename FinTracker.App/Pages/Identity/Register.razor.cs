@@ -43,7 +43,7 @@ namespace FinTracker.App.Pages.Identity
                 if (result.IsSuccess)
                     NavigationManager.NavigateTo("/login");
                 else
-                    Snackbar.Add(result.Message, Severity.Error);
+                    Snackbar.Add(result.Message ?? "Erro ao processar operação.", Severity.Error);
             }
             catch (Exception)
             {

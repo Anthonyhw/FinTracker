@@ -42,7 +42,7 @@ namespace FinTracker.App.Pages.Categories
                 }
                 else
                 {
-                    Snackbar.Add(result.Message, Severity.Error);
+                    Snackbar.Add(result.Message ?? "Erro ao processar operação.", Severity.Error);
                 }
             }
             catch (Exception ex)

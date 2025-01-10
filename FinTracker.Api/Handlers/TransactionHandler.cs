@@ -1,5 +1,6 @@
 ﻿using FinTracker.Api.Data;
 using FinTracker.Core.Common.Extensions;
+using FinTracker.Core.Enums;
 using FinTracker.Core.Handlers;
 using FinTracker.Core.Models;
 using FinTracker.Core.Requests.Transactions;
@@ -63,7 +64,7 @@ namespace FinTracker.Api.Handlers
                 {
                     UserId = request.UserId,
                     Title = request.Title,
-                    Amount = request.Amount,
+                    Amount = (request.Type == EtransactionType.Withdraw && request.Amount > 0) ? request.Amount * -1 : request.Amount,
                     Type = request.Type,
                     CategoryId = request.CategoryId,
                     CreatedAt = DateTime.Now,
@@ -94,7 +95,7 @@ namespace FinTracker.Api.Handlers
 
                 transaction.Title = request.Title;
                 transaction.Type = request.Type;
-                transaction.Amount = request.Amount;
+                transaction.Amount = (request.Type == EtransactionType.Withdraw && request.Amount > 0) ? request.Amount * -1 : request.Amount;
                 transaction.CategoryId = request.CategoryId;
                 transaction.PaidOrReceivedAt = request.PaidOrReceivedAt;
 
