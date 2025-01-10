@@ -112,6 +112,12 @@ namespace FinTracker.App.Pages.Transactions
                 throw;
             }
         }
+
+        public async Task OnSearchAsync()
+        {
+            await GetTransactions();
+            StateHasChanged();
+        }
         #endregion
     }
 }

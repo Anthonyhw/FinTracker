@@ -36,7 +36,7 @@ namespace FinTracker.Api.Handlers
 
                 var query = _context.Transactions
                     .AsNoTracking()
-                    .Where(t => t.UserId == request.UserId && t.CreatedAt >= request.StartDate && t.CreatedAt <= request.EndDate)
+                    .Where(t => t.UserId == request.UserId && t.PaidOrReceivedAt >= request.StartDate && t.PaidOrReceivedAt <= request.EndDate)
                     .OrderBy(t => t.CreatedAt);
 
                 var transactions = await query
