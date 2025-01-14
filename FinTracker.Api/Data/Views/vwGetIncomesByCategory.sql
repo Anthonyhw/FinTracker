@@ -3,7 +3,7 @@ CREATE OR ALTER VIEW [vwGetIncomesByCategory] AS
 		t.UserId
 		,c.Title AS [Category]
 		,YEAR(t.PaidOrReceivedAt) AS [Year]
-		,SUM(t.Amount) AS [Expenses] 
+		,SUM(t.Amount) AS [Incomes] 
 	FROM [Transactions] t
 		INNER JOIN [Categories] c 
 			ON t.CategoryId = c.Id

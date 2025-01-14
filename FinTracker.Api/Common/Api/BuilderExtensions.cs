@@ -70,7 +70,8 @@ namespace FinTracker.Api.Common.Api
         {
             #region [Dependency Injection]
             builder.Services.AddTransient<ICategoryHandler, CategoryHandler>()
-                            .AddTransient<ITransactionHandler, TransactionHandler>();
+                            .AddTransient<ITransactionHandler, TransactionHandler>()
+                            .AddTransient<IReportHandler, ReportHandler>();
             #endregion
         }
     }

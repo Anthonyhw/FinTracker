@@ -1,5 +1,4 @@
-﻿CREATE OR ALTER VIEW [vwGetIncomesAndExpenses] AS
-
+CREATE OR ALTER VIEW [vwGetIncomesAndExpenses] AS
 	SELECT 
 		t.UserId
 		,MONTH(T.PaidOrReceivedAt) AS [Month]
