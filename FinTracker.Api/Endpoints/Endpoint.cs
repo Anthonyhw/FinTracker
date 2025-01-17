@@ -1,6 +1,7 @@
 ﻿using FinTracker.Api.Common.Api;
 using FinTracker.Api.Endpoints.Categories;
 using FinTracker.Api.Endpoints.Identity;
+using FinTracker.Api.Endpoints.Orders;
 using FinTracker.Api.Endpoints.Reports;
 using FinTracker.Api.Endpoints.Transactions;
 using FinTracker.Api.Models;
@@ -64,6 +65,33 @@ namespace FinTracker.Api.Endpoints
                      .MapEndpoint<GetIncomesByCategoryReportEndpoint>()
                      .MapEndpoint<GetFinancialSummaryReportEndpoint>()
                      .MapEndpoint<GetIncomesAndExpensesReportEndpoint>();
+            #endregion
+
+            #region [Orders]
+            endpoints.MapGroup("v1/orders")
+                     .WithTags("Orders")
+                     .RequireAuthorization()
+                     .MapEndpoint<GetAllOrdersEndpoint>()
+                     .MapEndpoint<GetOrderByNumberEndpoint>()
+                     .MapEndpoint<CreateOrderEndpoint>()
+                     .MapEndpoint<CancelOrderEndpoint>()
+                     .MapEndpoint<PayOrderEndpoint>()
+                     .MapEndpoint<RefundOrderEndpoint>();
+            #endregion
+
+            #region [Products]
+            endpoints.MapGroup("v1/products")
+                     .WithTags("Products")
+                     .RequireAuthorization()
+                     .MapEndpoint<GetAllProductsEndpoint>()
+                     .MapEndpoint<GetProductBySlugEndpoint>();
+            #endregion
+
+            #region [Vouchers]
+            endpoints.MapGroup("v1/vouchers")
+                     .WithTags("Vouchers")
+                     .RequireAuthorization()
+                     .MapEndpoint<GetVoucherByNumberEndpoint>();
             #endregion
 
         }

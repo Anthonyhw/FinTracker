@@ -4,6 +4,7 @@ using FinTracker.Api.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FinTracker.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250117184414_ArrumandoVoucherCode")]
+    partial class ArrumandoVoucherCode
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -128,7 +131,6 @@ namespace FinTracker.Api.Migrations
 
                     b.Property<string>("Code")
                         .IsRequired()
-                        .HasMaxLength(80)
                         .HasColumnType("VARCHAR");
 
                     b.Property<DateTime>("CreatedAt")
@@ -329,6 +331,7 @@ namespace FinTracker.Api.Migrations
                         .HasColumnType("BIT");
 
                     b.Property<string>("Notes")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")

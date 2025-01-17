@@ -14,6 +14,7 @@ namespace FinTracker.Api.Data.Mappings
 
             builder.Property(x => x.Code)
                 .IsRequired(true)
+                .HasMaxLength(80)
                 .HasColumnType("VARCHAR");
 
             builder.Property(x => x.Title)
@@ -25,6 +26,9 @@ namespace FinTracker.Api.Data.Mappings
                 .IsRequired(false)
                 .HasColumnType("NVARCHAR")
                 .HasMaxLength(255);
+
+            builder.Property(x => x.Notes)
+                .IsRequired(false);
 
             builder.Property(x => x.Amount)
                 .IsRequired(true)

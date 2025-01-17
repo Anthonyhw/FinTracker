@@ -93,10 +93,6 @@ namespace FinTracker.Api.Handlers
 
                     voucher.IsActive = false;
                     _context.Vouchers.Update(voucher);
-
-
-                    // Evita que o EntityFramework recrie o objeto no banco caso ele seja atrelado a outro objeto.
-                    _context.Attach(voucher);
                 }
             }
             catch 
@@ -177,6 +173,8 @@ namespace FinTracker.Api.Handlers
             try
             {
                 order = await _context.Orders
+                            .Include(o => o.Product)
+                            .Include(o => o.Voucher)
                             .FirstOrDefaultAsync(o => o.UserId == request.UserId && o.Id == request.Id);
 
                 if (order is null)
@@ -225,6 +223,8 @@ namespace FinTracker.Api.Handlers
             try
             {
                 order = await _context.Orders
+                    .Include(o => o.Product)
+                    .Include(o => o.Voucher)
                     .FirstOrDefaultAsync(o => o.Id == request.Id && o.UserId == request.UserId);
 
                 if (order is null)

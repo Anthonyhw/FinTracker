@@ -13,6 +13,7 @@ namespace FinTracker.Api.Data.Mappings
 
             builder.Property(x => x.Code)
                 .IsRequired(true)
+                .HasMaxLength(80)
                 .HasColumnType("VARCHAR");
 
             builder.Property(x => x.ExternalReference)
