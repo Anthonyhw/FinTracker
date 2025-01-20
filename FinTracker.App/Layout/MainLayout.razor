@@ -16,7 +16,7 @@
                 <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="ToggleDrawer" />
                 FinTracker
                 <MudSpacer />
-                <MudButton Href="/lancamentos/novo" Variant="Variant.Text" StartIcon="@Icons.Material.TwoTone.Add">Novo Lançamento</MudButton>
+                <MudButton Href="/lancamentos/novo" Variant="Variant.Text" Color="Color.Inherit" @bind-Value="_isDarkMode" StartIcon="@Icons.Material.TwoTone.Add">Novo Lançamento</MudButton>
                 <MudSpacer />
                 <MudText Typo="Typo.caption">
                     @context.User.Identity?.Name

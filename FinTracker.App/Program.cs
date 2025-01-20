@@ -31,7 +31,10 @@ builder.Services.AddHttpClient(name:Configuration.HttpClientName, configureClien
 builder.Services.AddTransient<IAccountHandler, AccountHandler>()
                 .AddTransient<ICategoryHandler, CategoryHandler>()
                 .AddTransient<ITransactionHandler, TransactionHandler>()
-                .AddTransient<IReportHandler, ReportHandler>();
+                .AddTransient<IReportHandler, ReportHandler>()
+                .AddTransient<IVoucherHandler, VoucherHandler>()
+                .AddTransient<IProductHandler, ProductHandler>()
+                .AddTransient<IOrderHandler, OrderHandler>();
 
 builder.Services.AddLocalization();
 

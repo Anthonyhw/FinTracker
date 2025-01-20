@@ -10,7 +10,7 @@ namespace FinTracker.Api.Endpoints.Orders
     public class CancelOrderEndpoint : IEndpoint
     {
         public static void Map(IEndpointRouteBuilder app)
-            => app.MapPost("/{id}/cancel", HandleAsync)
+            => app.MapPost("/cancel/{id}", HandleAsync)
                 .WithName("Orders: Cancel Order")
                 .WithSummary("Cancela um pedido")
                 .WithDescription("Cancela um pedido")
