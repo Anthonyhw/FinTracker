@@ -5,13 +5,14 @@ using FinTracker.Core.Handlers;
 using FinTracker.Core.Models;
 using FinTracker.Core.Requests.Orders;
 using FinTracker.Core.Responses;
+using Microsoft.AspNetCore.Mvc;
 
 namespace FinTracker.Api.Endpoints.Orders
 {
     public class GetOrderByNumberEndpoint : IEndpoint
     {
         public static void Map(IEndpointRouteBuilder app)
-            => app.MapGet("/{id}", HandleAsync)
+            => app.MapGet("/{code}", HandleAsync)
             .WithName("Order: Get Order by Number")
             .WithSummary("Recupera um pedido pelo código.")
             .WithDescription("Recupera um pedido pelo código.")

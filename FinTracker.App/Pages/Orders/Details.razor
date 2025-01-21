@@ -1,0 +1,69 @@
+﻿@page "/pedidos/{number}"
+@inherits DetailsPage
+
+@if (Order is not null)
+{
+	<MudContainer Class="mt-8">
+		<MudText Typo="Typo.h4" Class="d-flex justify-center">Detalhes do pedido</MudText>
+		<br />
+		<MudGrid Justify="Justify.Center">
+			<MudItem Class="my-4">
+				<MudPaper Class="d-flex flex-column" Outlined="true">
+					<MudCard>
+						<MudCardHeader>
+							<CardHeaderContent>
+								<MudText Class="d-flex justify-center">Número do pedido</MudText>
+								<MudText Class="d-flex justify-center">@Order.Code</MudText>
+							</CardHeaderContent>
+						</MudCardHeader>
+						<MudCardContent>
+						<MudList T="string">
+							<MudListItem>
+								<MudText Class="d-flex justify-center">Data do pedido</MudText>
+								<MudText Class="d-flex justify-center">@Order.CreatedAt.ToString("dd/MM/yyyy")</MudText>
+							</MudListItem>
+							<MudListItem>
+								<MudText Class="d-flex justify-center">Última atualização</MudText>
+								<MudText Class="d-flex justify-center"> @Order.UpdatedAt.ToString("dd/MM/yyyy")</MudText>
+							</MudListItem>
+							<MudListItem>
+								<MudText Class="d-flex justify-center">Produto</MudText>
+								<MudText Class="d-flex justify-center">@Order.Product.Title</MudText>
+							</MudListItem>
+							<MudListItem>
+								<MudText Class="d-flex justify-center">Valor do produto</MudText>
+								<MudText Class="d-flex justify-center">@Order.Product.Price.ToString("C")</MudText>
+							</MudListItem>
+							<MudListItem>
+								<MudText Class="d-flex justify-center">Desconto</MudText>
+								<MudText Class="d-flex justify-center">@(Order.Voucher is null ? "Não aplicado." : Order.Voucher.Amount.ToString("C"))</MudText>
+							</MudListItem>
+							<MudListItem>
+								<MudText Class="d-flex justify-center">Total</MudText>
+								<MudText Class="d-flex justify-center">@Order.Total.ToString("C")</MudText>
+							</MudListItem>
+							<MudListItem>
+								<MudText Class="d-flex justify-center">Situação</MudText>
+								<div class="d-flex justify-center">
+									<OrderStatus Status="Order.Status" />
+								</div>
+							</MudListItem>
+							</MudList>
+						</MudCardContent>
+						<MudCardActions>
+							<CascadingValue Value="this">
+								<OrderAction Order="Order" />
+							</CascadingValue>
+						</MudCardActions>
+					</MudCard>
+				</MudPaper>
+			</MudItem>
+		</MudGrid>
+	</MudContainer>
+	
+}else
+{
+	<MudSkeleton Animation="Animation.Wave"></MudSkeleton>
+	<MudSkeleton Animation="Animation.Wave"></MudSkeleton>
+	<MudSkeleton Animation="Animation.Wave"></MudSkeleton>
+}
