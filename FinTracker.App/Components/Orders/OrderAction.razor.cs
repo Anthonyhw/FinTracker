@@ -3,7 +3,9 @@ using FinTracker.Core.Enums;
 using FinTracker.Core.Handlers;
 using FinTracker.Core.Models;
 using FinTracker.Core.Requests.Orders;
+using FinTracker.Core.Requests.Stripe;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using MudBlazor;
 
 namespace FinTracker.App.Components.Orders
@@ -19,9 +21,13 @@ namespace FinTracker.App.Components.Orders
 
         #region Services
         [Inject]
+        public IJSRuntime JsRuntime { get; set; } = null!;
+        [Inject]
         public IDialogService DialogService { get; set; } = null!;
         [Inject]
         public IOrderHandler OrderHandler { get; set; } = null!;
+        [Inject]
+        public IStripeHandler StripeHandler { get; set; } = null!;
         [Inject]
         public ISnackbar Snackbar { get; set; } = null!;
         #endregion
@@ -86,8 +92,30 @@ namespace FinTracker.App.Components.Orders
 
         private async Task PayOrderAsync()
         {
-            await Task.Delay(1000);
-            Snackbar.Add("Necessita ser implementado.");
+            var request = new CreateSessionRequest
+            {
+                OrderNumber = Order.Code,
+                OrderTotal = (int)Math.Round(Order.Total * 100, 2),
+                ProductTitle = Order.Product.Title,
+                ProductDescription = Order.Product.Description,
+            };
+
+            try
+            {
+                var result = await StripeHandler.CreateSessionAsync(request);
+                
+                if (!result.IsSuccess || result.Data is null)
+                {
+                    Snackbar.Add(result.Message ?? "", Severity.Error);
+                    return;
+                }
+
+                await JsRuntime.InvokeVoidAsync("checkout", Configuration.StripePublicKey, result.Data);
+            }
+            catch (Exception e)
+            {
+                Snackbar.Add("Não foi possível iniciar sessão com o stripe.: " + e.Message, Severity.Error);
+            }
         }
         #endregion
     }

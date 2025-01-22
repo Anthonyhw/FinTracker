@@ -6,6 +6,7 @@ namespace FinTracker.App
     {
         public const string HttpClientName = "FinTracker";
         public static string BackendUrl { get; set; } = "https://localhost:44380";
+        public static string StripePublicKey { get; set; } = "";
 
         public static MudTheme Theme = new()
         {

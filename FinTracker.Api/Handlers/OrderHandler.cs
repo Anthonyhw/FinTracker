@@ -4,12 +4,13 @@ using FinTracker.Core.Enums;
 using FinTracker.Core.Handlers;
 using FinTracker.Core.Models;
 using FinTracker.Core.Requests.Orders;
+using FinTracker.Core.Requests.Stripe;
 using FinTracker.Core.Responses;
 using Microsoft.EntityFrameworkCore;
 
 namespace FinTracker.Api.Handlers
 {
-    public class OrderHandler(AppDbContext _context) : IOrderHandler
+    public class OrderHandler(AppDbContext _context, IStripeHandler _stripeHandler) : IOrderHandler
     {
         public async Task<Response<Order?>> CancelAsync(CancelOrderRequest request)
         {
@@ -175,7 +176,7 @@ namespace FinTracker.Api.Handlers
                 order = await _context.Orders
                             .Include(o => o.Product)
                             .Include(o => o.Voucher)
-                            .FirstOrDefaultAsync(o => o.UserId == request.UserId && o.Id == request.Id);
+                            .FirstOrDefaultAsync(o => o.UserId == request.UserId && o.Code == request.Number);
 
                 if (order is null)
                     return new Response<Order?>(null, 404, "Pedido não encontrado.");
@@ -197,6 +198,32 @@ namespace FinTracker.Api.Handlers
                     return new Response<Order?>(order, 400, "Este pedido foi reembolsado e não pode ser pago.");
                 default:
                     return new Response<Order?>(order, 400, "Não foi possível prosseguir com o pagamento.");
+            }
+
+            try
+            {
+                var getTransactionsRequest = new GetTransactionsByOrderNumberRequest
+                {
+                    Number = order.Code
+                };
+                
+                var result = await _stripeHandler.GetTransactionsByOrderNumberAsync(getTransactionsRequest);
+
+                if (!result.IsSuccess || result.Data is null)
+                    return new Response<Order?>(null, 500, "Não foi possível localizar pagamento.");
+
+                if (result.Data.Any(x => x.Refunded))
+                    return new Response<Order?>(null, 400, "Este pedido já teve o pagamento reembolsado.");
+
+                if (!result.Data.Any(x => x.Paid))
+                    return new Response<Order?>(null, 400, "Este pedido não foi pago.");
+
+                request.ExternalReference = result.Data[0].Id;
+
+            }
+            catch
+            {
+                return new Response<Order?>(null, 500, "Não foi possível dar baixa em seu pedido.");
             }
 
             order.Status = EOrderStatus.Paid;

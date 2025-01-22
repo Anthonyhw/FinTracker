@@ -5,7 +5,7 @@ namespace FinTracker.Core.Models
     public class Order
     {
         public long Id { get; set; }
-        public string Code { get; set; } = Guid.NewGuid().ToString();
+        public string Code { get; set; } = Guid.NewGuid().ToString().Substring(0, 8);
         public string UserId { get; set; } = String.Empty;
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;

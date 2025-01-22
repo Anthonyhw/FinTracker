@@ -3,6 +3,7 @@ using FinTracker.Api.Endpoints.Categories;
 using FinTracker.Api.Endpoints.Identity;
 using FinTracker.Api.Endpoints.Orders;
 using FinTracker.Api.Endpoints.Reports;
+using FinTracker.Api.Endpoints.Stripe;
 using FinTracker.Api.Endpoints.Transactions;
 using FinTracker.Api.Models;
 using Microsoft.AspNetCore.Identity;
@@ -93,6 +94,14 @@ namespace FinTracker.Api.Endpoints
                      .RequireAuthorization()
                      .MapEndpoint<GetVoucherByNumberEndpoint>();
             #endregion
+
+            #region [Stripe]
+            endpoints.MapGroup("v1/payments/stripe")
+                     .WithTags("Payments - Stripe")
+                     .RequireAuthorization()
+                     .MapEndpoint<CreateSessionEndpoint>();
+            #endregion
+
 
         }
 

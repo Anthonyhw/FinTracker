@@ -2,7 +2,7 @@
 {
     public class PayOrderRequest : Request
     {
-        public long Id { get; set; }
+        public string Number { get; set; } = string.Empty;
         public string ExternalReference { get; set; } = string.Empty;
     }
 }

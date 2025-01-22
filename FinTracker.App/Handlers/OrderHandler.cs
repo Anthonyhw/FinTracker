@@ -33,7 +33,7 @@ namespace FinTracker.App.Handlers
 
         public async Task<Response<Order?>> PayAsync(PayOrderRequest request)
         {
-            var result = await _httpClient.PostAsJsonAsync($"v1/orders/pay/{request.Id}", request);
+            var result = await _httpClient.PostAsJsonAsync($"v1/orders/pay/{request.Number}", request);
             return await result.Content.ReadFromJsonAsync<Response<Order?>>()
                 ?? new Response<Order?>(null, 400, "Não foi possível efetuar o pagamento.");
         }

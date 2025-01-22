@@ -10,17 +10,17 @@ namespace FinTracker.Api.Endpoints.Orders
     public class PayOrderEndpoint : IEndpoint
     {
         public static void Map(IEndpointRouteBuilder app)
-            => app.MapPost("/pay/{id}", HandleAsync)
+            => app.MapPost("/pay/{number}", HandleAsync)
             .WithName("Order: Pay Order")
             .WithSummary("Realiza o pagamento de um pedido")
             .WithDescription("Realiza o pagamento de um pedido")
             .WithOrder(7)
             .Produces<Response<Order>>();
 
-        private static async Task<IResult> HandleAsync(IOrderHandler handler, long id, ClaimsPrincipal user, PayOrderRequest request)
+        private static async Task<IResult> HandleAsync(IOrderHandler handler, string number, ClaimsPrincipal user, PayOrderRequest request)
         {
             request.UserId = user.Identity!.Name ?? string.Empty;
-            request.Id = id;
+            request.Number = number;
 
             var result = await handler.PayAsync(request);
 

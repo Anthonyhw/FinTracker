@@ -10,6 +10,7 @@ using FinTracker.App.Handlers;
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
 Configuration.BackendUrl = builder.Configuration.GetValue<string>("BackendUrl") ?? string.Empty;
+Configuration.StripePublicKey = builder.Configuration.GetValue<string>("StripePublicKey") ?? string.Empty;
 
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
@@ -34,7 +35,8 @@ builder.Services.AddTransient<IAccountHandler, AccountHandler>()
                 .AddTransient<IReportHandler, ReportHandler>()
                 .AddTransient<IVoucherHandler, VoucherHandler>()
                 .AddTransient<IProductHandler, ProductHandler>()
-                .AddTransient<IOrderHandler, OrderHandler>();
+                .AddTransient<IOrderHandler, OrderHandler>()
+                .AddTransient<IStripeHandler, StripeHandler>();
 
 builder.Services.AddLocalization();
 

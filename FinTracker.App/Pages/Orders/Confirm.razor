@@ -1,0 +1,25 @@
+﻿@page "/pedidos/{number}/confirmar"
+@inherits ConfirmPaymentPage
+<MudContainer Class="mt-8">
+	<MudGrid Justify="Justify.Center">
+	@if (Order is not null)
+	{
+		@if (Order.Status == EOrderStatus.Paid)
+		{
+			<MudText Typo="Typo.h3">Pedido Confirmado com Sucesso!</MudText>
+			<MudText>Parabéns, seu pedido foi confirmado com sucesso</MudText>
+		}
+		else
+		{
+			<MudText Typo="Typo.h3">Ops, algo deu errado!</MudText>
+			<MudText>Seu pagamento não pôde ser completado.</MudText>
+		}
+	}
+	else
+	{
+		<MudSkeleton Animation="Animation.Wave" />
+		<MudSkeleton Animation="Animation.Wave" />
+		<MudSkeleton Animation="Animation.Wave" />
+	}
+		</MudGrid>
+</MudContainer>
