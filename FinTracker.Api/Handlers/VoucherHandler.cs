@@ -14,11 +14,20 @@ namespace FinTracker.Api.Handlers
 			try
 			{
                 var voucher = await _context.Vouchers.AsNoTracking()
-                    .FirstOrDefaultAsync(v => v.Code == request.Code && 
-                                              v.IsActive);
-                return voucher is null ? 
-                    new Response<Voucher?>(null, 404, "Cupom não encontrado.") : 
-                    new Response<Voucher?>(voucher);
+                    .FirstOrDefaultAsync(v => v.Code == request.Code);
+
+                if (voucher is null)
+                {
+                    return new Response<Voucher?>(null, 404, "Cupom não encontrado.");
+                }
+                else if (!voucher.IsActive)
+                {
+                    return new Response<Voucher?>(null, 400, "Cupom inativo.");
+                }
+                else
+                {
+                    return new Response<Voucher?>(voucher);
+                }
             }
 			catch
 			{
