@@ -515,5 +515,112 @@ namespace FinTracker.Tests.Handlers
             Assert.That(result.Message, Is.EqualTo("Não foi possível localizar pagamento."));
         }
         #endregion
+
+        #region RefundAsyncTests
+        [Test]
+        public async Task WhenRefundingOrder_IfOrderIsPaid_ShouldSuccess()
+        {
+            // Arrange
+            var request = new RefundOrderRequest
+            {
+                Id = 3,
+                UserId = "userteste@hotmail.com"
+
+            };
+
+            // Act
+            var result = await orderHandler.RefundAsync(request);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.That(result.Data, Is.Not.Null);
+            Assert.That(result.Code, Is.EqualTo(200));
+            Assert.That(result.Message, Is.EqualTo("Pedido reembolsado com sucesso."));
+        }
+
+        [Test]
+        public async Task WhenRefundingOrder_IfOrderNotFound_ShouldError()
+        {
+            // Arrange
+            var request = new RefundOrderRequest
+            {
+                Id = 99,
+                UserId = "userteste@hotmail.com"
+
+            };
+
+            // Act
+            var result = await orderHandler.RefundAsync(request);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.That(result.Data, Is.Null);
+            Assert.That(result.Code, Is.EqualTo(404));
+            Assert.That(result.Message, Is.EqualTo("Pedido não encontrado."));
+        }
+
+        [Test]
+        public async Task WhenRefundingOrder_IfOrderIsCanceled_ShouldError()
+        {
+            // Arrange
+            var request = new RefundOrderRequest
+            {
+                Id = 1,
+                UserId = "userteste@hotmail.com"
+
+            };
+
+            // Act
+            var result = await orderHandler.RefundAsync(request);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.That(result.Data, Is.Not.Null);
+            Assert.That(result.Code, Is.EqualTo(400));
+            Assert.That(result.Message, Is.EqualTo("Este pedido foi cancelado e não pode ser reembolsado."));
+        }
+
+        [Test]
+        public async Task WhenRefundingOrder_IfOrderIsWaitingPayment_ShouldError()
+        {
+            // Arrange
+            var request = new RefundOrderRequest
+            {
+                Id = 2,
+                UserId = "userteste@hotmail.com"
+
+            };
+
+            // Act
+            var result = await orderHandler.RefundAsync(request);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.That(result.Data, Is.Not.Null);
+            Assert.That(result.Code, Is.EqualTo(400));
+            Assert.That(result.Message, Is.EqualTo("Este pedido não foi pago e não pode ser reembolsado."));
+        }
+
+        [Test]
+        public async Task WhenRefundingOrder_IfOrderAlreadyRefunded_ShouldError()
+        {
+            // Arrange
+            var request = new RefundOrderRequest
+            {
+                Id = 4,
+                UserId = "userteste@hotmail.com"
+
+            };
+
+            // Act
+            var result = await orderHandler.RefundAsync(request);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.That(result.Data, Is.Not.Null);
+            Assert.That(result.Code, Is.EqualTo(400));
+            Assert.That(result.Message, Is.EqualTo("Este pedido já foi reembolsado."));
+        }
+        #endregion
     }
 }
