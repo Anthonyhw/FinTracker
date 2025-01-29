@@ -138,6 +138,51 @@ namespace FinTracker.Tests.Configuration
 
                 _context.Orders.AddRange(order1, order2, order3, order4);
 
+                var category1 = new Category
+                {
+                    Id = 1,
+                    UserId = "userteste@hotmail.com",
+                    Title = "Categoria teste 1",
+                    Description = "Categoria teste 1",
+                };
+
+                var category2 = new Category
+                {
+                    Id = 2,
+                    UserId = "userteste@hotmail.com",
+                    Title = "Categoria teste 2",
+                    Description = "Categoria teste 2",
+                };
+
+                _context.Categories.AddRange(category1, category2);
+
+                var transaction1 = new Transaction
+                {
+                    Id = 1,
+                    UserId = "userteste@hotmail.com",
+                    Amount = 100,
+                    CreatedAt = DateTime.Now,
+                    PaidOrReceivedAt = DateTime.Now,
+                    Category = category1,
+                    CategoryId = category1.Id,
+                    Title = "Transação Teste 1",
+                    Type = Core.Enums.EtransactionType.Deposit,
+                };
+
+                var transaction2 = new Transaction
+                {
+                    Id = 2,
+                    UserId = "userteste@hotmail.com",
+                    Amount = 200,
+                    CreatedAt = DateTime.Now,
+                    PaidOrReceivedAt = DateTime.Now,
+                    Category = category2,
+                    CategoryId = category2.Id,
+                    Title = "Transação Teste 2",
+                    Type = Core.Enums.EtransactionType.Withdraw,
+                };
+                _context.Transactions.AddRange(transaction1, transaction2);
+
                 _context.SaveChanges();
             }
         }

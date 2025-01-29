@@ -46,7 +46,7 @@ namespace FinTracker.Api.Handlers
                 var count = transactions.Count();
 
 
-                return transactions is null
+                return transactions.Count == 0
                     ? new PagedResponse<List<Transaction>>(null, 404, "Transações não encontradas.")
                     : new PagedResponse<List<Transaction>>(transactions, count, request.PageNumber, request.PageSize);
             }
