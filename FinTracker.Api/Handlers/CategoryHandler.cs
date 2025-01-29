@@ -25,7 +25,7 @@ namespace FinTracker.Api.Handlers
 
                 var count = await query.CountAsync();
 
-                return categories is null
+                return categories.Count == 0
                 ? new PagedResponse<List<Category>>(null, 404, "Categorias não encontradas.")
                 : new PagedResponse<List<Category>>(categories, count, request.PageNumber, request.PageSize);
             }

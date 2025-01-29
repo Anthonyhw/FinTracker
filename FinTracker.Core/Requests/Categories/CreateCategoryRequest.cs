@@ -11,9 +11,9 @@ namespace FinTracker.Core.Requests.Categories
     {
         [Required(ErrorMessage = "Título é obrigatório")]
         [MaxLength(80, ErrorMessage = "O título deve conter no máximo 80 caracteres!")]
-        public string Title { get; set; } = string.Empty;
+        public string Title { get; set; } = null!;
 
         [Required(ErrorMessage = "Descrição é obrigatória")]
-        public string Description { get; set; } = string.Empty;
+        public string Description { get; set; } = null!;
     }
 }
