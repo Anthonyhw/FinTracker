@@ -31,9 +31,11 @@ namespace FinTracker.Tests.Handlers
             var result = await categoryHandler.GetAllAsync(request);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Data, Is.Not.Null);
-            Assert.That(result.Code, Is.EqualTo(200));
+            Assert.Multiple(() => {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Data, Is.Not.Null);
+                Assert.That(result.Code, Is.EqualTo(200));
+                });
         }
 
         [Test]
@@ -49,10 +51,13 @@ namespace FinTracker.Tests.Handlers
             var result = await categoryHandler.GetAllAsync(request);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Data, Is.Null);
-            Assert.That(result.Code, Is.EqualTo(404));
-            Assert.That(result.Message, Is.EqualTo("Categorias não encontradas."));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Data, Is.Null);
+                Assert.That(result.Code, Is.EqualTo(404));
+                Assert.That(result.Message, Is.EqualTo("Categorias não encontradas."));
+            });
         }
         #endregion
         
@@ -69,11 +74,14 @@ namespace FinTracker.Tests.Handlers
 
             // Act
             var result = await categoryHandler.GetByIdAsync(request);
-            
+
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Data, Is.Not.Null);
-            Assert.That(result.Code, Is.EqualTo(200));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Data, Is.Not.Null);
+                Assert.That(result.Code, Is.EqualTo(200));
+            });
         }
 
         [Test]
@@ -90,10 +98,13 @@ namespace FinTracker.Tests.Handlers
             var result = await categoryHandler.GetByIdAsync(request);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Data, Is.Null);
-            Assert.That(result.Code, Is.EqualTo(404));
-            Assert.That(result.Message, Is.EqualTo("Categoria não encontrada."));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Data, Is.Null);
+                Assert.That(result.Code, Is.EqualTo(404));
+                Assert.That(result.Message, Is.EqualTo("Categoria não encontrada."));
+            }); 
         }
         #endregion
 
@@ -113,10 +124,13 @@ namespace FinTracker.Tests.Handlers
             var result = await categoryHandler.CreateAsync(request);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Data, Is.Not.Null);
-            Assert.That(result.Code, Is.EqualTo(201));
-            Assert.That(result.Message, Is.EqualTo("Categoria criada com sucesso!"));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Data, Is.Not.Null);
+                Assert.That(result.Code, Is.EqualTo(201));
+                Assert.That(result.Message, Is.EqualTo("Categoria criada com sucesso!"));
+            });
         }
 
         [Test]
@@ -132,10 +146,13 @@ namespace FinTracker.Tests.Handlers
             var result = await categoryHandler.CreateAsync(request);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Data, Is.Null);
-            Assert.That(result.Code, Is.EqualTo(500));
-            Assert.That(result.Message, Is.EqualTo("Não foi possível criar a categoria."));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Data, Is.Null);
+                Assert.That(result.Code, Is.EqualTo(500));
+                Assert.That(result.Message, Is.EqualTo("Não foi possível criar a categoria."));
+            });
         }
         #endregion
 
@@ -154,10 +171,13 @@ namespace FinTracker.Tests.Handlers
             var result = await categoryHandler.UpdateAsync(request);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Data, Is.Null);
-            Assert.That(result.Code, Is.EqualTo(404));
-            Assert.That(result.Message, Is.EqualTo("Categoria não encontrada."));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Data, Is.Null);
+                Assert.That(result.Code, Is.EqualTo(404));
+                Assert.That(result.Message, Is.EqualTo("Categoria não encontrada."));
+            });
         }
 
         [Test]
@@ -176,9 +196,12 @@ namespace FinTracker.Tests.Handlers
             var result = await categoryHandler.UpdateAsync(request);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Data, Is.Not.Null);
-            Assert.That(result.Code, Is.EqualTo(200));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Data, Is.Not.Null);
+                Assert.That(result.Code, Is.EqualTo(200));
+            });
         }
         #endregion
         
@@ -197,10 +220,13 @@ namespace FinTracker.Tests.Handlers
             var result = await categoryHandler.DeleteAsync(request);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Data, Is.Null);
-            Assert.That(result.Code, Is.EqualTo(404));
-            Assert.That(result.Message, Is.EqualTo("Categoria não encontrada."));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Data, Is.Null);
+                Assert.That(result.Code, Is.EqualTo(404));
+                Assert.That(result.Message, Is.EqualTo("Categoria não encontrada."));
+            });
         }
 
         [Test]
@@ -217,9 +243,12 @@ namespace FinTracker.Tests.Handlers
             var result = await categoryHandler.DeleteAsync(request);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Data, Is.Not.Null);
-            Assert.That(result.Code, Is.EqualTo(200));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Data, Is.Not.Null);
+                Assert.That(result.Code, Is.EqualTo(200));
+            });
         }
         #endregion
     }

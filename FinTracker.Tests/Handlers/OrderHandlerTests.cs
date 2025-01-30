@@ -47,10 +47,13 @@ namespace FinTracker.Tests.Handlers
             var result = await orderHandler.CancelAsync(request);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Data, Is.Not.Null);
-            Assert.That(result.Code, Is.EqualTo(400));
-            Assert.That(result.Message, Is.EqualTo("Este pedido já foi cancelado."));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Data, Is.Not.Null);
+                Assert.That(result.Code, Is.EqualTo(400));
+                Assert.That(result.Message, Is.EqualTo("Este pedido já foi cancelado."));
+            });
 
         }
 
@@ -65,10 +68,13 @@ namespace FinTracker.Tests.Handlers
             var result = await orderHandler.CancelAsync(request);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Data, Is.Not.Null);
-            Assert.That(result.Code, Is.EqualTo(400));
-            Assert.That(result.Message, Is.EqualTo("Este pedido já foi pago e não pode ser cancelado."));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Data, Is.Not.Null);
+                Assert.That(result.Code, Is.EqualTo(400));
+                Assert.That(result.Message, Is.EqualTo("Este pedido já foi pago e não pode ser cancelado."));
+            });
 
         }
 
@@ -83,10 +89,13 @@ namespace FinTracker.Tests.Handlers
             var result = await orderHandler.CancelAsync(request);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Data, Is.Not.Null);
-            Assert.That(result.Code, Is.EqualTo(400));
-            Assert.That(result.Message, Is.EqualTo("Este pedido já foi reembolsado."));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Data, Is.Not.Null);
+                Assert.That(result.Code, Is.EqualTo(400));
+                Assert.That(result.Message, Is.EqualTo("Este pedido já foi reembolsado."));
+            });
 
         }
 
@@ -101,10 +110,13 @@ namespace FinTracker.Tests.Handlers
             var result = await orderHandler.CancelAsync(request);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Data, Is.Not.Null);
-            Assert.That(result.Code, Is.EqualTo(200));
-            Assert.That(result.Message, Is.EqualTo("Pedido cancelado com sucesso."));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Data, Is.Not.Null);
+                Assert.That(result.Code, Is.EqualTo(200));
+                Assert.That(result.Message, Is.EqualTo("Pedido cancelado com sucesso."));
+            });
 
         }
 
@@ -119,10 +131,13 @@ namespace FinTracker.Tests.Handlers
             var result = await orderHandler.CancelAsync(request);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Data, Is.Null);
-            Assert.That(result.Code, Is.EqualTo(404));
-            Assert.That(result.Message, Is.EqualTo("Pedido não encontrado."));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Data, Is.Null);
+                Assert.That(result.Code, Is.EqualTo(404));
+                Assert.That(result.Message, Is.EqualTo("Pedido não encontrado."));
+            });
 
         }
         #endregion
@@ -142,10 +157,13 @@ namespace FinTracker.Tests.Handlers
             var result = await orderHandler.CreateAsync(request);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Data, Is.Not.Null);
-            Assert.That(result.Code, Is.EqualTo(201));
-            Assert.That(result.Message, Is.EqualTo($"Pedido {result.Data.Code} realizado com sucesso."));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Data, Is.Not.Null);
+                Assert.That(result.Code, Is.EqualTo(201));
+                Assert.That(result.Message, Is.EqualTo($"Pedido {result.Data.Code} realizado com sucesso."));
+            });
         }
 
         [Test]
@@ -162,10 +180,13 @@ namespace FinTracker.Tests.Handlers
             var result = await orderHandler.CreateAsync(request);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Data, Is.Null);
-            Assert.That(result.Code, Is.EqualTo(400));
-            Assert.That(result.Message, Is.EqualTo("Produto não encontrado."));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Data, Is.Null);
+                Assert.That(result.Code, Is.EqualTo(400));
+                Assert.That(result.Message, Is.EqualTo("Produto não encontrado."));
+            });
         }
 
         [Test]
@@ -182,10 +203,13 @@ namespace FinTracker.Tests.Handlers
             var result = await orderHandler.CreateAsync(request);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Data, Is.Null);
-            Assert.That(result.Code, Is.EqualTo(400));
-            Assert.That(result.Message, Is.EqualTo("Produto não encontrado."));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Data, Is.Null);
+                Assert.That(result.Code, Is.EqualTo(400));
+                Assert.That(result.Message, Is.EqualTo("Produto não encontrado."));
+            });
         }
 
         [Test]
@@ -202,10 +226,13 @@ namespace FinTracker.Tests.Handlers
             var result = await orderHandler.CreateAsync(request);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Data, Is.Not.Null);
-            Assert.That(result.Code, Is.EqualTo(201));
-            Assert.That(result.Message, Is.EqualTo($"Pedido {result.Data.Code} realizado com sucesso."));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Data, Is.Not.Null);
+                Assert.That(result.Code, Is.EqualTo(201));
+                Assert.That(result.Message, Is.EqualTo($"Pedido {result.Data.Code} realizado com sucesso."));
+            });
         }
 
         [Test]
@@ -222,10 +249,13 @@ namespace FinTracker.Tests.Handlers
             var result = await orderHandler.CreateAsync(request);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Data, Is.Null);
-            Assert.That(result.Code, Is.EqualTo(400));
-            Assert.That(result.Message, Is.EqualTo("Cupom inválido ou não encontrado."));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Data, Is.Null);
+                Assert.That(result.Code, Is.EqualTo(400));
+                Assert.That(result.Message, Is.EqualTo("Cupom inválido ou não encontrado."));
+            });
         }
         #endregion
 
@@ -243,10 +273,13 @@ namespace FinTracker.Tests.Handlers
             var result = await orderHandler.GetAllAsync(request);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Data, Is.Not.Null);
-            Assert.That(result.Data.Count.Equals(4));
-            Assert.That(result.Code, Is.EqualTo(200));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Data, Is.Not.Null);
+                Assert.That(result.Data!.Count.Equals(4));
+                Assert.That(result.Code, Is.EqualTo(200));
+            });
         }
         #endregion
 
@@ -265,9 +298,12 @@ namespace FinTracker.Tests.Handlers
             var result = await orderHandler.GetByNumberAsync(request);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Data, Is.Not.Null);
-            Assert.That(result.Code, Is.EqualTo(200));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Data, Is.Not.Null);
+                Assert.That(result.Code, Is.EqualTo(200));
+            });
         }
 
         [Test]
@@ -284,10 +320,13 @@ namespace FinTracker.Tests.Handlers
             var result = await orderHandler.GetByNumberAsync(request);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Data, Is.Null);
-            Assert.That(result.Code, Is.EqualTo(404));
-            Assert.That(result.Message, Is.EqualTo("Pedido não encontrado."));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Data, Is.Null);
+                Assert.That(result.Code, Is.EqualTo(404));
+                Assert.That(result.Message, Is.EqualTo("Pedido não encontrado."));
+            });
         }
         #endregion
 
@@ -325,10 +364,13 @@ namespace FinTracker.Tests.Handlers
             var result = await orderHandler.PayAsync(request);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Data, Is.Not.Null);
-            Assert.That(result.Code, Is.EqualTo(200));
-            Assert.That(result.Message, Is.EqualTo("Pedido pago com sucesso!"));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Data, Is.Not.Null);
+                Assert.That(result.Code, Is.EqualTo(200));
+                Assert.That(result.Message, Is.EqualTo("Pedido pago com sucesso!"));
+            });
         }
 
         [Test]
@@ -345,10 +387,13 @@ namespace FinTracker.Tests.Handlers
             var result = await orderHandler.PayAsync(request);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Data, Is.Not.Null);
-            Assert.That(result.Code, Is.EqualTo(400));
-            Assert.That(result.Message, Is.EqualTo("Este pedido já está pago."));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Data, Is.Not.Null);
+                Assert.That(result.Code, Is.EqualTo(400));
+                Assert.That(result.Message, Is.EqualTo("Este pedido já está pago."));
+            });
         }
 
         [Test]
@@ -365,10 +410,13 @@ namespace FinTracker.Tests.Handlers
             var result = await orderHandler.PayAsync(request);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Data, Is.Not.Null);
-            Assert.That(result.Code, Is.EqualTo(400));
-            Assert.That(result.Message, Is.EqualTo("Este pedido foi cancelado e não pode ser pago."));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Data, Is.Not.Null);
+                Assert.That(result.Code, Is.EqualTo(400));
+                Assert.That(result.Message, Is.EqualTo("Este pedido foi cancelado e não pode ser pago."));
+            });
         }
 
         [Test]
@@ -385,11 +433,14 @@ namespace FinTracker.Tests.Handlers
             var result = await orderHandler.PayAsync(request);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Data, Is.Not.Null);
-            Assert.That(result.Code, Is.EqualTo(400));
-            Assert.That(result.Message, Is.EqualTo("Este pedido foi reembolsado e não pode ser pago."));
-        }
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Data, Is.Not.Null);
+                Assert.That(result.Code, Is.EqualTo(400));
+                Assert.That(result.Message, Is.EqualTo("Este pedido foi reembolsado e não pode ser pago."));
+            });
+            }
 
         [Test]
         public async Task WhenPayingOrder_IfOrderNotFound_ShouldError()
@@ -405,10 +456,13 @@ namespace FinTracker.Tests.Handlers
             var result = await orderHandler.PayAsync(request);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Data, Is.Null);
-            Assert.That(result.Code, Is.EqualTo(404));
-            Assert.That(result.Message, Is.EqualTo("Pedido não encontrado."));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Data, Is.Null);
+                Assert.That(result.Code, Is.EqualTo(404));
+                Assert.That(result.Message, Is.EqualTo("Pedido não encontrado."));
+            });
         }
 
         [Test]
@@ -444,10 +498,13 @@ namespace FinTracker.Tests.Handlers
             var result = await orderHandler.PayAsync(request);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Data, Is.Null);
-            Assert.That(result.Code, Is.EqualTo(400));
-            Assert.That(result.Message, Is.EqualTo("Este pedido não foi pago."));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Data, Is.Null);
+                Assert.That(result.Code, Is.EqualTo(400));
+                Assert.That(result.Message, Is.EqualTo("Este pedido não foi pago."));
+            });
         }
 
         [Test]
@@ -483,10 +540,13 @@ namespace FinTracker.Tests.Handlers
             var result = await orderHandler.PayAsync(request);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Data, Is.Null);
-            Assert.That(result.Code, Is.EqualTo(400));
-            Assert.That(result.Message, Is.EqualTo("Este pedido já teve o pagamento reembolsado."));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Data, Is.Null);
+                Assert.That(result.Code, Is.EqualTo(400));
+                Assert.That(result.Message, Is.EqualTo("Este pedido já teve o pagamento reembolsado."));
+            });
         }
 
         [Test]
@@ -509,10 +569,13 @@ namespace FinTracker.Tests.Handlers
             var result = await orderHandler.PayAsync(request);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Data, Is.Null);
-            Assert.That(result.Code, Is.EqualTo(500));
-            Assert.That(result.Message, Is.EqualTo("Não foi possível localizar pagamento."));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Data, Is.Null);
+                Assert.That(result.Code, Is.EqualTo(500));
+                Assert.That(result.Message, Is.EqualTo("Não foi possível localizar pagamento."));
+            });
         }
         #endregion
 
@@ -532,10 +595,13 @@ namespace FinTracker.Tests.Handlers
             var result = await orderHandler.RefundAsync(request);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Data, Is.Not.Null);
-            Assert.That(result.Code, Is.EqualTo(200));
-            Assert.That(result.Message, Is.EqualTo("Pedido reembolsado com sucesso."));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Data, Is.Not.Null);
+                Assert.That(result.Code, Is.EqualTo(200));
+                Assert.That(result.Message, Is.EqualTo("Pedido reembolsado com sucesso."));
+            });
         }
 
         [Test]
@@ -553,10 +619,13 @@ namespace FinTracker.Tests.Handlers
             var result = await orderHandler.RefundAsync(request);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Data, Is.Null);
-            Assert.That(result.Code, Is.EqualTo(404));
-            Assert.That(result.Message, Is.EqualTo("Pedido não encontrado."));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Data, Is.Null);
+                Assert.That(result.Code, Is.EqualTo(404));
+                Assert.That(result.Message, Is.EqualTo("Pedido não encontrado."));
+            });
         }
 
         [Test]
@@ -574,10 +643,13 @@ namespace FinTracker.Tests.Handlers
             var result = await orderHandler.RefundAsync(request);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Data, Is.Not.Null);
-            Assert.That(result.Code, Is.EqualTo(400));
-            Assert.That(result.Message, Is.EqualTo("Este pedido foi cancelado e não pode ser reembolsado."));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Data, Is.Not.Null);
+                Assert.That(result.Code, Is.EqualTo(400));
+                Assert.That(result.Message, Is.EqualTo("Este pedido foi cancelado e não pode ser reembolsado."));
+            });
         }
 
         [Test]
@@ -595,10 +667,13 @@ namespace FinTracker.Tests.Handlers
             var result = await orderHandler.RefundAsync(request);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Data, Is.Not.Null);
-            Assert.That(result.Code, Is.EqualTo(400));
-            Assert.That(result.Message, Is.EqualTo("Este pedido não foi pago e não pode ser reembolsado."));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Data, Is.Not.Null);
+                Assert.That(result.Code, Is.EqualTo(400));
+                Assert.That(result.Message, Is.EqualTo("Este pedido não foi pago e não pode ser reembolsado."));
+            });
         }
 
         [Test]
@@ -616,10 +691,13 @@ namespace FinTracker.Tests.Handlers
             var result = await orderHandler.RefundAsync(request);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Data, Is.Not.Null);
-            Assert.That(result.Code, Is.EqualTo(400));
-            Assert.That(result.Message, Is.EqualTo("Este pedido já foi reembolsado."));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Data, Is.Not.Null);
+                Assert.That(result.Code, Is.EqualTo(400));
+                Assert.That(result.Message, Is.EqualTo("Este pedido já foi reembolsado."));
+            });
         }
         #endregion
     }

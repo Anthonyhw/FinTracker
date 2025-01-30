@@ -40,9 +40,12 @@ namespace FinTracker.Tests.Handlers
             var result = await voucherHandler.GetByNumberAsync(request);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Code, Is.EqualTo(200));
-            Assert.That(result.Data?.Code, Is.EqualTo("1234"));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Code, Is.EqualTo(200));
+                Assert.That(result.Data?.Code, Is.EqualTo("1234"));
+            });
         }
 
         [Test]
@@ -55,10 +58,13 @@ namespace FinTracker.Tests.Handlers
             var result = await voucherHandler.GetByNumberAsync(request);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Data, Is.Null);
-            Assert.That(result.Code, Is.EqualTo(404));
-            Assert.That(result.Message, Is.EqualTo("Cupom não encontrado."));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Data, Is.Null);
+                Assert.That(result.Code, Is.EqualTo(404));
+                Assert.That(result.Message, Is.EqualTo("Cupom não encontrado."));
+            });
         }
 
         [Test]
@@ -71,10 +77,13 @@ namespace FinTracker.Tests.Handlers
             var result = await voucherHandler.GetByNumberAsync(request);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Data, Is.Null);
-            Assert.That(result.Code, Is.EqualTo(400));
-            Assert.That(result.Message, Is.EqualTo("Cupom inativo."));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Data, Is.Null);
+                Assert.That(result.Code, Is.EqualTo(400));
+                Assert.That(result.Message, Is.EqualTo("Cupom inativo."));
+            });
         }
     }
 }

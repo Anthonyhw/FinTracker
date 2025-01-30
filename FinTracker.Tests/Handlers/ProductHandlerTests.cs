@@ -27,9 +27,12 @@ namespace FinTracker.Tests.Handlers
             var result = await productHandler.GetAllAsync(request);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Data, Is.Not.Null);
-            Assert.That(result.Code, Is.EqualTo(200));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Data, Is.Not.Null);
+                Assert.That(result.Code, Is.EqualTo(200));
+            });
         }
         #endregion
 
@@ -47,9 +50,12 @@ namespace FinTracker.Tests.Handlers
             var result = await productHandler.GetBySlugAsync(request);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Data, Is.Not.Null);
-            Assert.That(result.Code, Is.EqualTo(200));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Data, Is.Not.Null);
+                Assert.That(result.Code, Is.EqualTo(200));
+            });
         }
 
         [Test]
@@ -65,10 +71,13 @@ namespace FinTracker.Tests.Handlers
             var result = await productHandler.GetBySlugAsync(request);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Data, Is.Null);
-            Assert.That(result.Code, Is.EqualTo(404));
-            Assert.That(result.Message, Is.EqualTo("Produto não encontrado."));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Data, Is.Null);
+                Assert.That(result.Code, Is.EqualTo(404));
+                Assert.That(result.Message, Is.EqualTo("Produto não encontrado."));
+            });
         }
         #endregion
     }

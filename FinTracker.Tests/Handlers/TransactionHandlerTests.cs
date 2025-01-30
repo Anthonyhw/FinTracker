@@ -30,11 +30,14 @@ namespace FinTracker.Tests.Handlers
 
             // Act
             var result = await transactionHandler.GetByIdAsync(request);
-            
+
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Data, Is.Not.Null);
-            Assert.That(result.Code, Is.EqualTo(200));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Data, Is.Not.Null);
+                Assert.That(result.Code, Is.EqualTo(200));
+            });
         }
 
         [Test]
@@ -51,10 +54,13 @@ namespace FinTracker.Tests.Handlers
             var result = await transactionHandler.GetByIdAsync(request);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Data, Is.Null);
-            Assert.That(result.Code, Is.EqualTo(404));
-            Assert.That(result.Message, Is.EqualTo("Transação não encontrada."));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Data, Is.Null);
+                Assert.That(result.Code, Is.EqualTo(404));
+                Assert.That(result.Message, Is.EqualTo("Transação não encontrada."));
+            });
         }
         #endregion
 
@@ -72,9 +78,12 @@ namespace FinTracker.Tests.Handlers
             var result = await transactionHandler.GetByPeriodAsync(request);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Data, Is.Not.Null);
-            Assert.That(result.Code, Is.EqualTo(200));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Data, Is.Not.Null);
+                Assert.That(result.Code, Is.EqualTo(200));
+            });
         }
 
         [Test]
@@ -92,10 +101,13 @@ namespace FinTracker.Tests.Handlers
             var result = await transactionHandler.GetByPeriodAsync(request);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Data, Is.Null);
-            Assert.That(result.Code, Is.EqualTo(404));
-            Assert.That(result.Message, Is.EqualTo("Transações não encontradas."));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Data, Is.Null);
+                Assert.That(result.Code, Is.EqualTo(404));
+                Assert.That(result.Message, Is.EqualTo("Transações não encontradas."));
+            });
         }
         #endregion
 
@@ -117,10 +129,13 @@ namespace FinTracker.Tests.Handlers
             var result = await transactionHandler.CreateAsync(request);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Data, Is.Not.Null);
-            Assert.That(result.Code, Is.EqualTo(201));
-            Assert.That(result.Message, Is.EqualTo("Transação criada com sucesso!"));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Data, Is.Not.Null);
+                Assert.That(result.Code, Is.EqualTo(201));
+                Assert.That(result.Message, Is.EqualTo("Transação criada com sucesso!"));
+            });
         }
 
         [Test]
@@ -136,10 +151,13 @@ namespace FinTracker.Tests.Handlers
             var result = await transactionHandler.CreateAsync(request);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Data, Is.Null);
-            Assert.That(result.Code, Is.EqualTo(500));
-            Assert.That(result.Message, Is.EqualTo("Não foi possível criar a transação."));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Data, Is.Null);
+                Assert.That(result.Code, Is.EqualTo(500));
+                Assert.That(result.Message, Is.EqualTo("Não foi possível criar a transação."));
+            });
         }
         #endregion
 
@@ -162,10 +180,13 @@ namespace FinTracker.Tests.Handlers
             var result = await transactionHandler.UpdateAsync(request);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Data, Is.Null);
-            Assert.That(result.Code, Is.EqualTo(404));
-            Assert.That(result.Message, Is.EqualTo("Transação não encontrada."));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Data, Is.Null);
+                Assert.That(result.Code, Is.EqualTo(404));
+                Assert.That(result.Message, Is.EqualTo("Transação não encontrada."));
+            });
         }
 
         [Test]
@@ -187,10 +208,13 @@ namespace FinTracker.Tests.Handlers
             var result = await transactionHandler.UpdateAsync(request);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Data, Is.Not.Null);
-            Assert.That(result.Code, Is.EqualTo(200));
-            Assert.That(result.Message, Is.EqualTo("Transação atualizada com sucesso!"));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Data, Is.Not.Null);
+                Assert.That(result.Code, Is.EqualTo(200));
+                Assert.That(result.Message, Is.EqualTo("Transação atualizada com sucesso!"));
+            });
         }
         #endregion
 
@@ -209,10 +233,13 @@ namespace FinTracker.Tests.Handlers
             var result = await transactionHandler.DeleteAsync(request);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Data, Is.Null);
-            Assert.That(result.Code, Is.EqualTo(404));
-            Assert.That(result.Message, Is.EqualTo("Transação não encontrada."));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Data, Is.Null);
+                Assert.That(result.Code, Is.EqualTo(404));
+                Assert.That(result.Message, Is.EqualTo("Transação não encontrada."));
+            });
         }
 
         [Test]
@@ -229,10 +256,13 @@ namespace FinTracker.Tests.Handlers
             var result = await transactionHandler.DeleteAsync(request);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Data, Is.Not.Null);
-            Assert.That(result.Code, Is.EqualTo(200));
-            Assert.That(result.Message, Is.EqualTo("Transação removida com sucesso!"));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Data, Is.Not.Null);
+                Assert.That(result.Code, Is.EqualTo(200));
+                Assert.That(result.Message, Is.EqualTo("Transação removida com sucesso!"));
+            });
         }
         #endregion
     }
