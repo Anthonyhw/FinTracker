@@ -78,7 +78,7 @@ namespace FinTracker.App.Pages.Orders
                 {
                     var request = new GetVoucherByNumberRequest()
                     {
-                        Code = VoucherCode ?? ""
+                        Code = VoucherCode
                     };
                     var result = await VoucherHandler.GetByNumberAsync(request);
 

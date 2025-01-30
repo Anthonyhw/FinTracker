@@ -67,8 +67,8 @@ namespace FinTracker.Api.Handlers
             Product? product;
             try
             {
-                product = _context.Products.AsNoTracking()
-                    .FirstOrDefault(p => p.Id == request.ProductId && p.IsActive);
+                product = await _context.Products.AsNoTracking()
+                    .FirstOrDefaultAsync(p => p.Id == request.ProductId && p.IsActive);
 
                 if (product is null)
                     return new Response<Order?>(null, 400, "Produto não encontrado.");
@@ -86,8 +86,8 @@ namespace FinTracker.Api.Handlers
             {
                 if (request.VoucherId is not null)
                 {
-                    voucher = _context.Vouchers.AsNoTracking()
-                    .FirstOrDefault(v => v.Id == request.VoucherId && v.IsActive);
+                    voucher = await _context.Vouchers.AsNoTracking()
+                    .FirstOrDefaultAsync(v => v.Id == request.VoucherId && v.IsActive);
 
                     if (voucher is null)
                         return new Response<Order?>(null, 400, "Cupom inválido ou não encontrado.");
