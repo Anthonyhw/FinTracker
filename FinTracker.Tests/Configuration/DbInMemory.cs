@@ -62,7 +62,8 @@ namespace FinTracker.Tests.Configuration
                     Description = "Produto teste 1",
                     Slug = "teste-1",
                     IsActive = true,
-                    Price = 250
+                    Price = 250,
+                    ProductDuration = 12
                 };
 
                 var product2 = new Product
@@ -72,7 +73,8 @@ namespace FinTracker.Tests.Configuration
                     Description = "Produto teste 2",
                     Slug = "teste-2",
                     IsActive = false,
-                    Price = 500
+                    Price = 500,
+                    ProductDuration = 5
                 };
                 _context.Products.AddRange(product1, product2);
 

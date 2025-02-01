@@ -1,17 +1,13 @@
-﻿using FinTracker.Api.Data;
-using FinTracker.Api.Handlers;
-using FinTracker.Core.Enums;
+﻿using FinTracker.Api.Handlers;
+using FinTracker.Api.Models;
 using FinTracker.Core.Handlers;
-using FinTracker.Core.Models;
 using FinTracker.Core.Requests.Orders;
 using FinTracker.Core.Requests.Stripe;
 using FinTracker.Core.Responses;
 using FinTracker.Core.Responses.Stripe;
 using FinTracker.Tests.Configuration;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Identity;
 using Moq;
-using Stripe.Climate;
 
 namespace FinTracker.Tests.Handlers
 {
@@ -31,7 +27,8 @@ namespace FinTracker.Tests.Handlers
             var dbInMemory = new DbInMemory();
             var context = dbInMemory.GetContext();
             var stripeHandler = new Mock<IStripeHandler>();
-            orderHandler = new OrderHandler(context, stripeHandler.Object);
+            var userManager = new Mock<UserManager<User>>(Mock.Of<IUserStore<User>>(), null, null, null, null, null, null, null, null);
+            orderHandler = new OrderHandler(context, stripeHandler.Object, userManager.Object);
             context.ChangeTracker.Clear();
         }
 
@@ -343,6 +340,7 @@ namespace FinTracker.Tests.Handlers
             var dbInMemory = new DbInMemory();
             var context = dbInMemory.GetContext();
             var stripeHandler = new Mock<IStripeHandler>();
+            var userManager = new Mock<UserManager<User>>(Mock.Of<IUserStore<User>>(), null, null, null, null, null, null, null, null);
             var stripeTransactionResponse = new List<StripeTransactionResponse>()
             {
                 new StripeTransactionResponse()
@@ -353,11 +351,13 @@ namespace FinTracker.Tests.Handlers
                     AmountCaptured = 150,
                     Refunded = false,
                     Status = "",
-                    Paid = true
+                    Paid = true,
+                    ProductDuration = 12
                 }
             };
             stripeHandler.Setup(s => s.GetTransactionsByOrderNumberAsync(It.IsAny<GetTransactionsByOrderNumberRequest>())).Returns(Task.FromResult(new Response<List<StripeTransactionResponse>>(stripeTransactionResponse, 200, "")));
-            orderHandler = new OrderHandler(dbInMemory.GetContext(), stripeHandler.Object);
+            userManager.Setup(s => s.FindByNameAsync(It.IsAny<string>())).Returns(Task.FromResult(new User()));
+            orderHandler = new OrderHandler(dbInMemory.GetContext(), stripeHandler.Object, userManager.Object);
             context.ChangeTracker.Clear();
 
             // Act
@@ -477,6 +477,7 @@ namespace FinTracker.Tests.Handlers
             var dbInMemory = new DbInMemory();
             var context = dbInMemory.GetContext();
             var stripeHandler = new Mock<IStripeHandler>();
+            var userManager = new Mock<UserManager<User>>(Mock.Of<IUserStore<User>>(), null, null, null, null, null, null, null, null);
             var stripeTransactionResponse = new List<StripeTransactionResponse>()
             {
                 new StripeTransactionResponse()
@@ -491,7 +492,7 @@ namespace FinTracker.Tests.Handlers
                 }
             };
             stripeHandler.Setup(s => s.GetTransactionsByOrderNumberAsync(It.IsAny<GetTransactionsByOrderNumberRequest>())).Returns(Task.FromResult(new Response<List<StripeTransactionResponse>>(stripeTransactionResponse, 200, "")));
-            orderHandler = new OrderHandler(dbInMemory.GetContext(), stripeHandler.Object);
+            orderHandler = new OrderHandler(dbInMemory.GetContext(), stripeHandler.Object, userManager.Object);
             context.ChangeTracker.Clear();
 
             // Act
@@ -519,6 +520,7 @@ namespace FinTracker.Tests.Handlers
             var dbInMemory = new DbInMemory();
             var context = dbInMemory.GetContext();
             var stripeHandler = new Mock<IStripeHandler>();
+            var userManager = new Mock<UserManager<User>>(Mock.Of<IUserStore<User>>(), null, null, null, null, null, null, null, null);
             var stripeTransactionResponse = new List<StripeTransactionResponse>()
             {
                 new StripeTransactionResponse()
@@ -533,7 +535,7 @@ namespace FinTracker.Tests.Handlers
                 }
             };
             stripeHandler.Setup(s => s.GetTransactionsByOrderNumberAsync(It.IsAny<GetTransactionsByOrderNumberRequest>())).Returns(Task.FromResult(new Response<List<StripeTransactionResponse>>(stripeTransactionResponse, 200, "")));
-            orderHandler = new OrderHandler(dbInMemory.GetContext(), stripeHandler.Object);
+            orderHandler = new OrderHandler(dbInMemory.GetContext(), stripeHandler.Object, userManager.Object);
             context.ChangeTracker.Clear();
 
             // Act
@@ -561,8 +563,9 @@ namespace FinTracker.Tests.Handlers
             var dbInMemory = new DbInMemory();
             var context = dbInMemory.GetContext();
             var stripeHandler = new Mock<IStripeHandler>();
+            var userManager = new Mock<UserManager<User>>(Mock.Of<IUserStore<User>>(), null, null, null, null, null, null, null, null);
             stripeHandler.Setup(s => s.GetTransactionsByOrderNumberAsync(It.IsAny<GetTransactionsByOrderNumberRequest>())).Returns(Task.FromResult(new Response<List<StripeTransactionResponse>>(null, 200, "")));
-            orderHandler = new OrderHandler(dbInMemory.GetContext(), stripeHandler.Object);
+            orderHandler = new OrderHandler(dbInMemory.GetContext(), stripeHandler.Object, userManager.Object);
             context.ChangeTracker.Clear();
 
             // Act
