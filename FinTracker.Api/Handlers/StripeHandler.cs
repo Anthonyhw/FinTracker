@@ -19,7 +19,8 @@ namespace FinTracker.Api.Handlers
                 {
                     Metadata = new Dictionary<string, string>
                     {
-                        {"order", request.OrderNumber }
+                        {"order", request.OrderNumber },
+                        {"product_duration", request.ProductDuration.ToString()}
                     }
                 },
                 PaymentMethodTypes = ["card"],
@@ -55,7 +56,7 @@ namespace FinTracker.Api.Handlers
         {
             ChargeSearchOptions options = new ChargeSearchOptions
             {
-                Query =$"metadata['order']:'{request.Number}'"  
+                Query =$"metadata['order']:'{request.Number}'"
             };
 
             ChargeService service = new ChargeService();
@@ -78,6 +79,7 @@ namespace FinTracker.Api.Handlers
                     Status = item.Status,
                     Paid = item.Paid,
                     Refunded = item.Refunded,
+                    ProductDuration = short.Parse(item.Metadata["product_duration"])
                 });
             }
 

@@ -97,6 +97,7 @@ namespace FinTracker.App.Components.Orders
                 OrderNumber = Order.Code,
                 OrderTotal = (int)Math.Round(Order.Total * 100, 2),
                 ProductTitle = Order.Product.Title,
+                ProductDuration = Order.Product.ProductDuration,
                 ProductDescription = Order.Product.Description,
             };
 

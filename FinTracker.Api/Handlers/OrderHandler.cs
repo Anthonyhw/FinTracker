@@ -1,16 +1,19 @@
-﻿using System.Diagnostics;
+﻿using System.Security.Claims;
 using FinTracker.Api.Data;
+using FinTracker.Api.Models;
 using FinTracker.Core.Enums;
 using FinTracker.Core.Handlers;
 using FinTracker.Core.Models;
 using FinTracker.Core.Requests.Orders;
 using FinTracker.Core.Requests.Stripe;
 using FinTracker.Core.Responses;
+using FinTracker.Core.Responses.Stripe;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace FinTracker.Api.Handlers
 {
-    public class OrderHandler(AppDbContext _context, IStripeHandler _stripeHandler) : IOrderHandler
+    public class OrderHandler(AppDbContext _context, IStripeHandler _stripeHandler, UserManager<User> _userManager) : IOrderHandler
     {
         public async Task<Response<Order?>> CancelAsync(CancelOrderRequest request)
         {
@@ -200,6 +203,7 @@ namespace FinTracker.Api.Handlers
                     return new Response<Order?>(order, 400, "Não foi possível prosseguir com o pagamento.");
             }
 
+            Response<List<StripeTransactionResponse>> result;
             try
             {
                 var getTransactionsRequest = new GetTransactionsByOrderNumberRequest
@@ -207,7 +211,7 @@ namespace FinTracker.Api.Handlers
                     Number = order.Code
                 };
                 
-                var result = await _stripeHandler.GetTransactionsByOrderNumberAsync(getTransactionsRequest);
+                result = await _stripeHandler.GetTransactionsByOrderNumberAsync(getTransactionsRequest);
 
                 if (!result.IsSuccess || result.Data is null)
                     return new Response<Order?>(null, 500, "Não foi possível localizar pagamento.");
@@ -230,9 +234,15 @@ namespace FinTracker.Api.Handlers
             order.ExternalReference = request.ExternalReference;
             order.UpdatedAt = DateTime.Now;
 
+            var user = await _userManager.FindByNameAsync(request.UserId);
+            user!.PremiumExpirationDate = DateTime.Now.AddMonths(result.Data[0].ProductDuration);
+            var claim = new Claim("PremiumUser", "true");
+            await _userManager.AddClaimAsync(user, claim);
+
             try
             {
                 _context.Orders.Update(order);
+                await _userManager.UpdateAsync(user);
                 await _context.SaveChangesAsync();
             }
             catch

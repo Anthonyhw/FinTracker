@@ -7,6 +7,7 @@
         public long Amount { get; set; }
         public long AmountCaptured { get; set; }
         public string Status { get; set; } = string.Empty;
+        public short ProductDuration { get; set; }
         public bool Paid { get; set; }
         public bool Refunded { get; set; }
     }

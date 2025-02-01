@@ -58,7 +58,7 @@ namespace FinTracker.App.Components.Reports
             StateHasChanged();
         }
 
-        private static string GetMonthName(int month) => new DateTime(DateTime.Now.Year, month, DateTime.Now.Day).ToString("MMM");
+        private static string GetMonthName(int month) => new DateTime(DateTime.Now.Year, month, 1).ToString("MMM");
         #endregion
     }
 }
