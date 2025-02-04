@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FinTracker.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250117185237_ArrumandoOrderCode")]
-    partial class ArrumandoOrderCode
+    [Migration("20250204003835_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -70,6 +70,9 @@ namespace FinTracker.Api.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<DateTime?>("PremiumExpirationDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
@@ -187,6 +190,9 @@ namespace FinTracker.Api.Migrations
 
                     b.Property<decimal>("Price")
                         .HasColumnType("MONEY");
+
+                    b.Property<short>("ProductDuration")
+                        .HasColumnType("smallint");
 
                     b.Property<string>("Slug")
                         .IsRequired()

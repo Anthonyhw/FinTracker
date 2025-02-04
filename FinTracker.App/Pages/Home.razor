@@ -60,14 +60,16 @@
 			</MudCardContent>
 		</MudCard>
 	</MudItem>
-	<MudItem>
-		<MudCard Class="pa-8">
-			<MudCardHeader>
-				<MudText Typo="Typo.h6">Despesas por Categoria</MudText>
-			</MudCardHeader>
-			<MudCardContent>
-				<ExpensesByCategoryChart />
-			</MudCardContent>
-		</MudCard>
-	</MudItem>	
+	<AuthorizeView>
+		<MudItem>
+			<MudCard Class="pa-8">
+				<MudCardHeader>
+					<MudText Typo="Typo.h6">Despesas por Categoria</MudText>
+				</MudCardHeader>
+				<MudCardContent>
+					<ExpensesByCategoryChart />
+				</MudCardContent>
+			</MudCard>
+		</MudItem>	
+	</AuthorizeView>
 </MudGrid>

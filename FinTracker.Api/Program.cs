@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using FinTracker.Api;
 using FinTracker.Api.Common.Api;
 using FinTracker.Api.Endpoints;
@@ -15,6 +16,8 @@ builder.AddDataContexts();
 builder.AddCrossOrigin();
 
 builder.AddServices();
+
+builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options => options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 var app = builder.Build();
 

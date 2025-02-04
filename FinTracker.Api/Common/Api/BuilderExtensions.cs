@@ -36,7 +36,13 @@ namespace FinTracker.Api.Common.Api
             #region [Authentication & Authorization]
             builder.Services.AddAuthentication(IdentityConstants.ApplicationScheme)
                             .AddIdentityCookies();
-            builder.Services.AddAuthorization();
+            builder.Services.AddAuthorization(opt =>
+            {
+                opt.AddPolicy("PremiumAccess", policy =>
+                {
+                    policy.RequireClaim("PremiumUser", "true");
+                });
+            });
             #endregion
         }
 

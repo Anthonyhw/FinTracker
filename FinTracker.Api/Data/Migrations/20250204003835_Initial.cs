@@ -6,11 +6,26 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace FinTracker.Api.Migrations
 {
     /// <inheritdoc />
-    public partial class AddIdentity : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Categories",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "NVARCHAR(80)", maxLength: 80, nullable: false),
+                    Description = table.Column<string>(type: "NVARCHAR(255)", maxLength: 255, nullable: true),
+                    UserId = table.Column<string>(type: "NVARCHAR(160)", maxLength: 160, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Categories", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "IdentityRoleClaim",
                 columns: table => new
@@ -32,6 +47,7 @@ namespace FinTracker.Api.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    PremiumExpirationDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(180)", maxLength: 180, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(180)", maxLength: 180, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(180)", maxLength: 180, nullable: true),
@@ -50,6 +66,67 @@ namespace FinTracker.Api.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_IdentityUser", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Products",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "NVARCHAR(80)", maxLength: 80, nullable: false),
+                    Description = table.Column<string>(type: "NVARCHAR(255)", maxLength: 255, nullable: true),
+                    Slug = table.Column<string>(type: "VARCHAR(80)", maxLength: 80, nullable: false),
+                    ProductDuration = table.Column<short>(type: "smallint", nullable: false),
+                    IsActive = table.Column<bool>(type: "BIT", nullable: false),
+                    Price = table.Column<decimal>(type: "MONEY", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Products", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Vouchers",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Code = table.Column<string>(type: "VARCHAR(80)", maxLength: 80, nullable: false),
+                    Title = table.Column<string>(type: "NVARCHAR(80)", maxLength: 80, nullable: false),
+                    Description = table.Column<string>(type: "NVARCHAR(255)", maxLength: 255, nullable: true),
+                    Notes = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsActive = table.Column<bool>(type: "BIT", nullable: false),
+                    Amount = table.Column<decimal>(type: "MONEY", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Vouchers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Transactions",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "NVARCHAR(80)", maxLength: 80, nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PaidOrReceivedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Type = table.Column<short>(type: "SMALLINT", nullable: false),
+                    Amount = table.Column<decimal>(type: "MONEY", nullable: false),
+                    CategoryId = table.Column<long>(type: "bigint", nullable: false),
+                    UserId = table.Column<string>(type: "VARCHAR(160)", maxLength: 160, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Transactions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Transactions_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -152,6 +229,38 @@ namespace FinTracker.Api.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Code = table.Column<string>(type: "VARCHAR(80)", maxLength: 80, nullable: false),
+                    UserId = table.Column<string>(type: "VARCHAR(160)", maxLength: 160, nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "DATETIME2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "DATETIME2", nullable: false),
+                    ExternalReference = table.Column<string>(type: "VARCHAR(60)", maxLength: 60, nullable: true),
+                    Gateway = table.Column<short>(type: "SMALLINT", nullable: false),
+                    Status = table.Column<short>(type: "SMALLINT", nullable: false),
+                    ProductId = table.Column<long>(type: "bigint", nullable: false),
+                    VoucherId = table.Column<long>(type: "bigint", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Orders_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Orders_Vouchers_VoucherId",
+                        column: x => x.VoucherId,
+                        principalTable: "Vouchers",
+                        principalColumn: "Id");
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_IdentityClaim_UserId",
                 table: "IdentityClaim",
@@ -187,6 +296,21 @@ namespace FinTracker.Api.Migrations
                 name: "IX_IdentityUserLogin_UserId",
                 table: "IdentityUserLogin",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_ProductId",
+                table: "Orders",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_VoucherId",
+                table: "Orders",
+                column: "VoucherId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Transactions_CategoryId",
+                table: "Transactions",
+                column: "CategoryId");
         }
 
         /// <inheritdoc />
@@ -211,7 +335,22 @@ namespace FinTracker.Api.Migrations
                 name: "IdentityUserToken");
 
             migrationBuilder.DropTable(
+                name: "Orders");
+
+            migrationBuilder.DropTable(
+                name: "Transactions");
+
+            migrationBuilder.DropTable(
                 name: "IdentityUser");
+
+            migrationBuilder.DropTable(
+                name: "Products");
+
+            migrationBuilder.DropTable(
+                name: "Vouchers");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
         }
     }
 }

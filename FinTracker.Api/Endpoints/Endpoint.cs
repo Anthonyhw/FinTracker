@@ -33,7 +33,8 @@ namespace FinTracker.Api.Endpoints
                      .WithTags("Identity")
                      .RequireAuthorization()
                      .MapEndpoint<LogoutEndpoint>()
-                     .MapEndpoint<GetRolesEndpoint>();
+                     .MapEndpoint<GetRolesEndpoint>()
+                     .MapEndpoint<GetClaimsEndpoint>();
             #endregion
 
             #region [Categories]

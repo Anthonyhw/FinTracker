@@ -3,6 +3,7 @@ using FinTracker.Core.Requests;
 using FinTracker.Core.Requests.Account;
 using FinTracker.Core.Responses;
 using System.Net.Http.Json;
+using System.Security.Claims;
 using System.Text;
 
 namespace FinTracker.App.Handlers
@@ -10,6 +11,14 @@ namespace FinTracker.App.Handlers
     public class AccountHandler(IHttpClientFactory httpClientFactory) : IAccountHandler
     {
         private readonly HttpClient _httpClient = httpClientFactory.CreateClient(Configuration.HttpClientName);
+
+        public async Task<Response<List<Claim>>> GetClaimsAsync()
+        {
+            var result = await _httpClient.GetFromJsonAsync<Response<List<Claim>>>("v1/identity/claims");
+            return result!.IsSuccess ? result
+                    : new Response<List<Claim>> (null, 400, "Não foi possível recuperar Claims.");
+        }
+
         public async Task<Response<string>> LoginAsync(LoginRequest request)
         {
             var result = await _httpClient.PostAsJsonAsync("v1/identity/login?useCookies=true", request);
