@@ -23,6 +23,14 @@ jobs:
         with:
           dotnet-version: '8.x'
 
+      #substitute production appsettings entries to appsettings json file
+      - name: App Settings Variable Substitution
+        uses: microsoft/variable-substitution@v1
+        with:
+          files: '${{env.DOTNET_ROOT}}/myapp/appsettings.json'
+        env:
+          BackendUrl: ${{ secrets.BACKENDURL }}
+
       - name: Build with dotnet
         run: dotnet build FinTracker.App/FinTracker.App.csproj --configuration Release
 
