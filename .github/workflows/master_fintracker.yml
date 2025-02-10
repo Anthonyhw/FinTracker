@@ -24,7 +24,7 @@ jobs:
           dotnet-version: '8.x'
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release
+        run: dotnet build FinTracker.App/FinTracker.App.csproj --configuration Release
 
       - name: dotnet publish
         run: dotnet publish FinTracker.App/FinTracker.App.csproj -c Release -o "${{env.DOTNET_ROOT}}/myapp"
