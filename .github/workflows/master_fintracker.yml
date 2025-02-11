@@ -18,11 +18,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up .NET Core
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '8.x'
-
       #substitute production appsettings entries to appsettings json file
       - name: App Settings Variable Substitution
         uses: microsoft/variable-substitution@v1
@@ -30,6 +25,11 @@ jobs:
           files: '${{env.DOTNET_ROOT}}/myapp/appsettings.json'
         env:
           BackendUrl: ${{ secrets.BACKENDURL }}
+          
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.x'
 
       - name: Build with dotnet
         run: dotnet build FinTracker.App/FinTracker.App.csproj --configuration Release
