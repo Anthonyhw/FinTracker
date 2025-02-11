@@ -25,6 +25,7 @@ jobs:
         env:
           BackendUrl: ${{ secrets.BACKENDURL }}
           FrontendUrl: ${{ secrets.FRONTENDURL }}
+          ConnectionStrings.DefaultConnection: ${{ secrets.DATABASECONNECTION }}
 
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v4
